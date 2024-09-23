@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/auth/users")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173")  
+@CrossOrigin(origins = "https://frontend-stylo-store.vercel.app/")  
 public class UsuarioController {
     private final UsuarioServices usuarioServices;
 

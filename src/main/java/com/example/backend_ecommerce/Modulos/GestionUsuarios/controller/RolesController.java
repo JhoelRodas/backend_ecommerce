@@ -14,7 +14,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/auth/roles")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173")  
+@CrossOrigin(origins = "https://frontend-stylo-store.vercel.app/")  
 public class RolesController {
 
     private final RolesServices rolesServices;
