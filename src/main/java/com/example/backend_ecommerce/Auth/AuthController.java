@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "https://frontend-stylo-store.vercel.app/")  
+@CrossOrigin(origins = {"https://frontend-stylo-store.vercel.app/","http://localhost:5173","http://localhost:5174", "http://192.168.0.3"})  
 public class AuthController {
 
     private final AuthService authService;

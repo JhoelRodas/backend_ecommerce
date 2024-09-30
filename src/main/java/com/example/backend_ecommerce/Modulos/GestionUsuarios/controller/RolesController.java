@@ -14,7 +14,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/auth/roles")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "https://frontend-stylo-store.vercel.app/")  
+@CrossOrigin(origins = {"https://frontend-stylo-store.vercel.app/","http://localhost:5173"})
 public class RolesController {
 
     private final RolesServices rolesServices;
@@ -45,9 +45,19 @@ public class RolesController {
     }
 
     // Endpoint para actualizar un rol
-    @PutMapping("/{id}")
+    @PutMapping("editar/{id}")
     public ResponseEntity<Roles> actualizarRol(@PathVariable Integer id, @RequestBody Roles rolesDetalles) {
         Optional<Roles> rolActualizado = rolesServices.actualizarRol(id, rolesDetalles);
+        if (rolActualizado.isPresent()) {
+            return ResponseEntity.ok(rolActualizado.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Roles> actualizarRolNombre(@PathVariable Integer id, @RequestBody Roles rolesDetalles) {
+        Optional<Roles> rolActualizado = rolesServices.actualizarRolNombre(id, rolesDetalles);
         if (rolActualizado.isPresent()) {
             return ResponseEntity.ok(rolActualizado.get());
         } else {

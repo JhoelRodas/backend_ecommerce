@@ -26,20 +26,36 @@ public class AuthService {
 
     private final AuthenticationManager authenticationManager;
 
-    public AuthResponse login(LoginRequest request) {
-        System.out.println(request);
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-        UserDetails user=userRepository.findByUsername(request.getUsername()).orElseThrow();
-        String token=jwtService.getToken(user);
-        return AuthResponse.builder()
-            .token(token)
-            .build();
-    }
+    // public AuthResponse login(LoginRequest request) {
+    //     //System.out.println(request);
+    //     authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+    //     UserDetails user=userRepository.findByUsername(request.getUsername()).orElseThrow();
+    //     String token=jwtService.getToken(user);
+    //     System.out.println("este es el token"+token);
+    //     return AuthResponse.builder()
+    //         .token(token)
+    //         .build();
+    // }
 
+    public AuthResponse login(LoginRequest request) {
+        try {
+            authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
+            );
+        } catch (Exception e) {
+            // Capturar más detalles del error de autenticación
+            System.out.println("Error de autenticación: " + e.getMessage());
+            throw new RuntimeException("Invalid credentials");
+        }
+        UserDetails user = userRepository.findByUsername(request.getUsername()).orElseThrow();
+        String token = jwtService.getToken(user);
+        return AuthResponse.builder().token(token).build();
+    }
+    
     public AuthResponse register(RegisterRequest request) {
         // Busca el rol en la base de datos, en este caso "ROLE_USER"
-        Roles userRole = rolesRepository.findByNombre("ROLE_ADMIN")
-        .orElseThrow(() -> new RuntimeException("El rol ROLE_ADMIN no está configurado en la base de datos"));
+        Roles userRole = rolesRepository.findByNombre("CLIENTE")
+        .orElseThrow(() -> new RuntimeException("El rol CLIENTE no está configurado en la base de datos"));
 
             User user = User.builder()
             .username(request.getUsername())

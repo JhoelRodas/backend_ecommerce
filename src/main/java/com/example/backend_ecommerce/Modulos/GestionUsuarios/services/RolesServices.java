@@ -31,11 +31,20 @@ public class RolesServices {
         return rolesRepository.findById(id);
     }
 
-    // Actualizar un rol por ID
+    // Actualizar permisos de un rol por ID 
     public Optional<Roles> actualizarRol(Integer id, Roles rolesDetalles) {
         return rolesRepository.findById(id).map(rolExistente -> {
             rolExistente.setNombre(rolesDetalles.getNombre());
             rolExistente.setPermisos(rolesDetalles.getPermisos());
+            return rolesRepository.save(rolExistente);
+        });
+    }
+
+
+    // Actualizar el nombre de un rol por ID 
+    public Optional<Roles> actualizarRolNombre(Integer id, Roles rolesDetalles) {
+        return rolesRepository.findById(id).map(rolExistente -> {
+            rolExistente.setNombre(rolesDetalles.getNombre());
             return rolesRepository.save(rolExistente);
         });
     }
