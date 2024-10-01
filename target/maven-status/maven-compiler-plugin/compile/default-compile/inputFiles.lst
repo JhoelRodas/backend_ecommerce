@@ -3,6 +3,8 @@ C:\Programas\Proyecto ecommerce\backend_ecommerce\src\main\java\com\example\back
 C:\Programas\Proyecto ecommerce\backend_ecommerce\src\main\java\com\example\backend_ecommerce\Auth\AuthService.java
 C:\Programas\Proyecto ecommerce\backend_ecommerce\src\main\java\com\example\backend_ecommerce\Auth\LoginRequest.java
 C:\Programas\Proyecto ecommerce\backend_ecommerce\src\main\java\com\example\backend_ecommerce\Auth\RegisterRequest.java
+C:\Programas\Proyecto ecommerce\backend_ecommerce\src\main\java\com\example\backend_ecommerce\Auth\UsernameRequest.java
+C:\Programas\Proyecto ecommerce\backend_ecommerce\src\main\java\com\example\backend_ecommerce\Auth\UserResponse.java
 C:\Programas\Proyecto ecommerce\backend_ecommerce\src\main\java\com\example\backend_ecommerce\BackendEcommerceApplication.java
 C:\Programas\Proyecto ecommerce\backend_ecommerce\src\main\java\com\example\backend_ecommerce\config\ApplicationConfig.java
 C:\Programas\Proyecto ecommerce\backend_ecommerce\src\main\java\com\example\backend_ecommerce\config\SecurityConfig.java
@@ -17,6 +19,7 @@ C:\Programas\Proyecto ecommerce\backend_ecommerce\src\main\java\com\example\back
 C:\Programas\Proyecto ecommerce\backend_ecommerce\src\main\java\com\example\backend_ecommerce\Modulos\GestionProductosSucursales\controller\ProductoControlller.java
 C:\Programas\Proyecto ecommerce\backend_ecommerce\src\main\java\com\example\backend_ecommerce\Modulos\GestionProductosSucursales\controller\StockController.java
 C:\Programas\Proyecto ecommerce\backend_ecommerce\src\main\java\com\example\backend_ecommerce\Modulos\GestionProductosSucursales\controller\SucursalesController.java
+C:\Programas\Proyecto ecommerce\backend_ecommerce\src\main\java\com\example\backend_ecommerce\Modulos\GestionProductosSucursales\dto\StockCheckRequest.java
 C:\Programas\Proyecto ecommerce\backend_ecommerce\src\main\java\com\example\backend_ecommerce\Modulos\GestionProductosSucursales\entity\Categoria.java
 C:\Programas\Proyecto ecommerce\backend_ecommerce\src\main\java\com\example\backend_ecommerce\Modulos\GestionProductosSucursales\entity\Productos.java
 C:\Programas\Proyecto ecommerce\backend_ecommerce\src\main\java\com\example\backend_ecommerce\Modulos\GestionProductosSucursales\entity\Stock.java

@@ -20,7 +20,8 @@ public class AuthController {
 
     @PostMapping(value="login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request)
-    {
+    {   
+        System.out.println("Is Web Access: " + request);
         return ResponseEntity.ok(authService.login(request));
     }
 
@@ -32,6 +33,10 @@ public class AuthController {
 
     }
 
+    @PostMapping("/getUserByUsername")
+public ResponseEntity<UserResponse> getUserByUsername(@RequestBody UsernameRequest request) {
+    return ResponseEntity.ok(authService.getUserByUsername(request.getUsername()));
+}
 
 
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.backend_ecommerce.Modulos.GestionProductosSucursales.dto.StockCheckRequest;
 import com.example.backend_ecommerce.Modulos.GestionProductosSucursales.entity.Stock;
 import com.example.backend_ecommerce.Modulos.GestionProductosSucursales.services.StockServices;
 import java.util.List;
@@ -20,12 +21,13 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/auth/stock")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"https://frontend-stylo-store.vercel.app/","http://localhost:5173/"})
+// @CrossOrigin(origins =
+// {"https://frontend-stylo-store.vercel.app/","http://localhost:5173/"})
 public class StockController {
-    
+
     private final StockServices stockService;
 
-     // Obtener todos los registros de stock
+    // Obtener todos los registros de stock
     @GetMapping
     public List<Stock> getAllStock() {
         return stockService.getAllStock();
@@ -61,4 +63,14 @@ public class StockController {
         stockService.deleteStock(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/checkStock")
+    public ResponseEntity<Integer> checkStock(@RequestBody StockCheckRequest request) {
+        int stockDisponible = stockService.checkStock(
+                request.getSucursalId(),
+                request.getProductoId(),
+                request.getTalla());
+        return ResponseEntity.ok(stockDisponible); // Asegúrate de que se devuelva un valor entero
+    }
+
 }

@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/auth/producto")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"https://frontend-stylo-store.vercel.app/","http://localhost:5173/"})
+// @CrossOrigin(origins = {"https://frontend-stylo-store.vercel.app/","http://localhost:5173/"})
 public class ProductoControlller {
 
     private final ProductoServices productosService;

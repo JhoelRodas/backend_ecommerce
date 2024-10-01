@@ -51,4 +51,28 @@ public class StockServices {
         stockRepository.deleteById(id);
     }
 
+    public int checkStock(Integer sucursalId, Integer productoId, String talla) {
+        Optional<Stock> stock = stockRepository.findBySucursalIdAndProductoIdAndTalla(
+            sucursalId, productoId, talla
+        );
+        return stock.map(Stock::getCantidad).orElse(0);
+    }
+    public void decreaseStock(Integer sucursalId, Integer productoId, String talla, int cantidad) {
+    Optional<Stock> stockOpt = stockRepository.findBySucursalIdAndProductoIdAndTalla(
+        sucursalId, productoId, talla
+    );
+
+    if (stockOpt.isPresent()) {
+        Stock stock = stockOpt.get();
+        int nuevaCantidad = stock.getCantidad() - cantidad;
+        if (nuevaCantidad < 0) {
+            throw new RuntimeException("Stock insuficiente");
+        }
+        stock.setCantidad(nuevaCantidad);
+        stockRepository.save(stock);
+    } else {
+        throw new RuntimeException("Stock no encontrado");
+    }
+}
+
 }

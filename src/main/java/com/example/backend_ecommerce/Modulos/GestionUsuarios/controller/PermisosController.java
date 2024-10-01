@@ -15,7 +15,7 @@ import com.example.backend_ecommerce.Modulos.GestionUsuarios.services.PermisosSe
 @RestController
 @RequestMapping("/auth/permisos")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"https://frontend-stylo-store.vercel.app/","http://localhost:5173"})
+// @CrossOrigin(origins = {"https://frontend-stylo-store.vercel.app/","http://localhost:5173"})
 public class PermisosController {
     
     private final PermisosServices permisosServices;

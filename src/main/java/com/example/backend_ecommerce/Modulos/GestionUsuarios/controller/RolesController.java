@@ -4,6 +4,7 @@ import com.example.backend_ecommerce.Modulos.GestionUsuarios.entity.Roles;
 import com.example.backend_ecommerce.Modulos.GestionUsuarios.services.RolesServices;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
@@ -14,12 +15,13 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/auth/roles")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"https://frontend-stylo-store.vercel.app/","http://localhost:5173"})
+// @CrossOrigin(origins = {"https://frontend-stylo-store.vercel.app/","http://localhost:5173"})
 public class RolesController {
 
     private final RolesServices rolesServices;
 
     // Endpoint para crear un nuevo rol
+    //@PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<Roles> crearRol(@RequestBody Roles roles) {
         Roles nuevoRol = rolesServices.crearRoles(roles);
@@ -27,6 +29,7 @@ public class RolesController {
     }
 
     // Endpoint para obtener todos los roles
+    
     @GetMapping
     public ResponseEntity<List<Roles>> obtenerTodosLosRoles() {
         List<Roles> roles = rolesServices.obtenerTodosLosRoles();
@@ -45,6 +48,7 @@ public class RolesController {
     }
 
     // Endpoint para actualizar un rol
+    //@PreAuthorize("hasAuthority('UPDATE_ROLE')")
     @PutMapping("editar/{id}")
     public ResponseEntity<Roles> actualizarRol(@PathVariable Integer id, @RequestBody Roles rolesDetalles) {
         Optional<Roles> rolActualizado = rolesServices.actualizarRol(id, rolesDetalles);

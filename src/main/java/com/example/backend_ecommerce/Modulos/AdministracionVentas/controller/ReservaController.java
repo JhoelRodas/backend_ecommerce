@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,20 +20,49 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.backend_ecommerce.Modulos.AdministracionVentas.entity.Reservas;
 import com.example.backend_ecommerce.Modulos.AdministracionVentas.services.ReservaServices;
+import com.example.backend_ecommerce.Modulos.GestionProductosSucursales.services.StockServices;
 
 @RestController
 @RequestMapping("/auth/reservas")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"https://frontend-stylo-store.vercel.app/","http://localhost:5173/"})
+//@CrossOrigin(origins = {"https://frontend-stylo-store.vercel.app/","http://localhost:5173/"})
 public class ReservaController {
-     @Autowired
-    private ReservaServices reservaService;
+     
+    private final ReservaServices reservaService;
+    private final StockServices stockService;
 
     // Crear una nueva reserva
-    @PostMapping
-    public ResponseEntity<Reservas> createReserva(@RequestBody Reservas reserva) {
-        Reservas nuevaReserva = reservaService.saveReserva(reserva);
-        return ResponseEntity.ok(nuevaReserva);
+     @PostMapping
+    public ResponseEntity<?> createReserva(@RequestBody Reservas reserva) {
+        try {
+            // Verificar stock disponible
+            
+            int stockDisponible = stockService.checkStock(
+                reserva.getSucursales().getId(),
+                reserva.getProducto().getId(),
+                reserva.getTalla()
+            );
+
+            if (stockDisponible <= 0) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("No hay stock disponible para este producto en la sucursal seleccionada.");
+            }
+
+            // Disminuir el stock en 1
+            stockService.decreaseStock(
+                reserva.getSucursales().getId(),
+                reserva.getProducto().getId(),
+                reserva.getTalla(),
+                1
+            );
+
+            // Guardar la reserva
+            Reservas nuevaReserva = reservaService.saveReserva(reserva);
+            return ResponseEntity.status(HttpStatus.CREATED).body(nuevaReserva);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Error al crear la reserva: " + e.getMessage());
+        }
     }
 
     // Obtener todas las reservas
